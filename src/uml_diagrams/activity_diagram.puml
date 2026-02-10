@@ -1,0 +1,21 @@
+@startuml activityDiagram
+start
+:Open webcam capture;
+repeat
+  :Capture frame;
+  :Process frame for hand landmarks;
+  if (Hands detected?) then (yes)
+    :Classify hands;
+    :Update hand results;
+    :Set finger states;
+    :Get gestures;
+    :Handle controls based on gestures;
+    :Draw landmarks on frame;
+  else (no)
+    :Reset previous hand position;
+  endif
+  :Display frame;
+repeat while (Exit key not pressed)
+:Release webcam and close windows;
+stop
+@enduml

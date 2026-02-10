@@ -1,0 +1,80 @@
+@startuml classDiagram
+' class Gest {
+'   <<enumeration>>
+'   FIST = 0
+'   PINKY = 1
+'   RING = 2
+'   MID = 4
+'   LAST3 = 7
+'   INDEX = 8
+'   FIRST2 = 12
+'   LAST4 = 15
+'   THUMB = 16
+'   PALM = 31
+'   V_GEST = 33
+'   TWO_FINGER_CLOSED = 34
+'   PINCH_MAJOR = 35
+'   PINCH_MINOR = 36
+' }
+class HLabel {
+  <<enumeration>>
+  MINOR = 0
+  MAJOR = 1
+}
+class HandRecog {
+  - finger: int
+  - ori_gesture: Gest
+  - prev_gesture: Gest
+  - frame_count: int
+  - hand_result
+  - hand_label: HLabel
+  + __init__(hand_label)
+  + update_hand_result(hand_result)
+  + get_signed_dist(point)
+  + get_dist(point)
+  + get_dz(point)
+  + set_finger_state()
+  + get_gesture(): Gest
+}
+class Controller {
+  - tx_old: int
+  - ty_old: int
+  - trial: bool
+  - flag: bool
+  - grabflag: bool
+  - pinchmajorflag: bool
+  - pinchminorflag: bool
+  - pinchstartxcoord
+  - pinchstartycoord
+  - pinchdirectionflag
+  - prevpinchlv: int
+  - pinchlv: int
+  - framecount: int
+  - prev_hand
+  - pinch_threshold: float
+  + getpinchylv(hand_result)
+  + getpinchxlv(hand_result)
+  + changesystembrightness()
+  + changesystemvolume()
+  + scrollVertical()
+  + scrollHorizontal()
+  + get_position(hand_result)
+  + pinch_control_init(hand_result)
+  + pinch_control(hand_result, controlHorizontal, controlVertical)
+  + handle_controls(gesture, hand_result)
+}
+class GestureController {
+  - gc_mode: int
+  - cap
+  - CAM_HEIGHT
+  - CAM_WIDTH
+  - hr_major
+  - hr_minor
+  - dom_hand: bool
+  + __init__()
+  + classify_hands(results)
+  + start()
+}
+GestureController --> HandRecog : uses
+GestureController --> Controller : uses
+@enduml

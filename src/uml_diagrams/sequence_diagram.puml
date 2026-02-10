@@ -1,0 +1,17 @@
+@startuml sequenceDiagram
+actor User
+participant GestureController
+participant HandRecog
+participant Controller
+User -> GestureController: start()
+loop for each frame
+  GestureController -> GestureController: capture frame
+  GestureController -> HandRecog: update_hand_result()
+  GestureController -> HandRecog: set_finger_state()
+  GestureController -> HandRecog: get_gesture()
+  GestureController -> Controller: handle_controls()
+  GestureController -> GestureController: draw landmarks
+  GestureController -> User: display frame
+end loop
+User -> GestureController: exit()
+@enduml

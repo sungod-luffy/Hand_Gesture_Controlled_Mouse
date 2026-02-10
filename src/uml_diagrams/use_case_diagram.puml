@@ -1,0 +1,12 @@
+@startuml useCaseDiagram
+left to right direction
+actor User
+rectangle "Virtual Mouse Gesture Controller" {
+  User --> (Track Mouse)
+  User --> (Control Volume)
+  User --> (Control Brightness)
+  User --> (Scroll)
+  User --> (Click)
+  User --> (Double Click)
+}
+@enduml
